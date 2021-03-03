@@ -53,7 +53,7 @@ def maxProduct(nums):
     #sort
     nums.sort()
     
-    max_num = 0
+    max_num = nums[0]*nums[1]
     
     if nums[0] * nums[1] > nums[-1] * nums[-2]:
         max_num = nums[0] * nums[1]
@@ -113,5 +113,17 @@ maxZeros([0, 1, 0, 0])
 maxZeros([1, 0, 0, 0, 0, 1, 0, 1, 0, 0])
 # 得到 0
 maxZeros([1, 1, 1, 1, 1])
+
+
+
+
+
+
+
+
+
+
+
+
 
 
