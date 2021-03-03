@@ -60,7 +60,7 @@
 		*/
 		function maxProduct(nums){
 		// 請用你的程式補完這個函式的區塊 
-			let temp,max_value = 0,num1,num2;
+			let temp,max_value = nums[0]*nums[1],num1,num2;
 			for(i=0;i<nums.length-1;i++){
 				for(j=i+1;j<nums.length;j++){
 					temp = nums[i] * nums[j]
