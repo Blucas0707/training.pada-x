@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+		<style type="text/css">
+			* {
+				margin:0;
+				padding:0;
+				font-size: 20px;
+			}
+			nav {
+				display:flex;
+				align-items:center;
+				height:44px;
+			}
+			nav>.logo {
+				flex:none;
+				width:150px;
+			}
+			nav>.buffer {
+				flex:auto;
+				/*background-color: #F5F5F5*/
+			}
+			nav>.menubar {
+				flex:none;
+				width:80px;
+				/*background-color: red;*/
+				text-align: center;
+			}
+			nav>.menubar-hamburger {
+				display: none;
+			}
+			.greet-bar {
+				display:flex;
+				justify-content: center;
+				align-items: center;
+				background-color: lightblue;
+				height:300px;
+			}
+			.greet-bar .greet-content {
+				felx:auto;
+				/*background-color: red;*/
+				font-size: 2em;
+				font-family: "Sofia", sans-serif;
+			}
+			.img-gallery {
+				display:flex;
+				flex-wrap: wrap;
+				justify-content: center;
+				/*background-color: #cccccc;*/
+				/*max-width:1200px;*/
+			}
+			.img-gallery .img{
+				flex:none;
+				width:280px;
+				//height:200px;
+				margin:5px;
+				text-align: center;
+				background-color: lightblue;
+			}
+			.img-gallery .img img{
+				width:100%;
+				height:80%;
+				background-color: red;
+			}
+			.load {
+				display: flex;
+				align-items:center;
+				
+			}
+			.loadmore {
+				flex:auto;
+				text-align: center;
+
+			}
+			@media (min-width: 1200px) {
+					.img-gallery {
+					display:flex;
+					flex-wrap: wrap;
+					justify-content: center;
+					max-width:1200px;
+					margin:auto;
+				}
+				
+			}
+			@media (max-width: 1200px) {
+				.img-gallery .img {
+					width:45%;
+				}
+			}
+			@media (max-width: 600px) {
+				.img-gallery .img {
+					width:90%;
+				}
+				nav>.menubar {
+					display:none;
+				}	
+				nav>.menubar-hamburger {
+					display:flex;
+					flex:none;
+				}
+			}
+		</style>
+		<script type="text/javascript">
+			const web_url = "https://padax.github.io/taipei-day-trip-resources/taipei-attractions.json"
+			var count = 0; //load 幾張圖片的start index
+			
+			function show_pic(count, jsonformat){
+				console.log(count);
+				let title, longitude, latitude, pic_url_index, pic_url, div, div_img_gallery, img, content;
+				for(let result_index =count;result_index<count+8;result_index++){
+
+					title = jsonformat.result.results[result_index].stitle;
+					longitude = jsonformat.result.results[result_index].longitude;
+					latitude = jsonformat.result.results[result_index].latitude;
+					// 要取出第一個jpg url, 先轉成小寫, 在判斷.jpg index後, 取出前面的url
+					pic_url_index = jsonformat.result.results[result_index].file.toLowerCase().indexOf('.jpg');
+					pic_url = jsonformat.result.results[result_index].file.toLowerCase().substr(0,pic_url_index) + '.jpg';
+
+					// create new div under img-gallery
+					div = document.createElement('div');
+					div.className = 'img';
+					div.id = 'view';
+					div_img_gallery = document.getElementById('img-gallery-contain');
+					div_img_gallery.appendChild(div);
+
+					// create new img under new div 
+					img = document.createElement('img');
+					img.src = pic_url;
+					div.appendChild(img);
+
+					content = document.createTextNode(title);
+					div.appendChild(content);
+				}
+			}
+
+			function getData(count,web_url){
+				// connect to server
+				let req =new XMLHttpRequest();
+				//req setting as below
+				// connent method 
+				req.open("get",web_url);
+				// get results when web is on load
+				req.onload=function(){
+					//connetion done
+					// convert string to JSON format
+					jsonformat = JSON.parse(this.responseText);
+					console.log(jsonformat);
+					// display pic * 8 
+					show_pic(count,jsonformat);
+
+				};
+				// send requests
+				req.send();
+			}
+
+		</script>
+	</head>
+	<body onload="getData(count,web_url);">
+		<header class="header-header">
+			<nav class="navbar">
+				<div class="logo">My Website</div>
+				<div class="buffer"></div>
+				<div class="menubar">Home</div>
+				<div class="menubar">About</div>
+				<div class="menubar">Contact</div>
+				<div class="menubar-hamburger"><img src="menu-hamburger.svg"></div>
+			</nav>
+		</header>
+		<main>
+			<div class="greet-bar">
+				<div class="greet-content">Welcome to Nature World</div>
+			</div>
+		</main>
+
+		<div class="img-gallery" id="img-gallery-contain" onLoad = "show_pic();">
+			<!-- <div class="img" id="view"><img id="view_pic" src=""></img></div>
+			<div class="img" id="view"><img id="view_pic" src=""></img></div>
+			<div class="img" id="view"><img id="view_pic" src=""></img></div>
+			<div class="img" id="view"><img id="view_pic" src=""></img></div>
+			<div class="img" id="view"><img id="view_pic" src=""></img></div>
+			<div class="img" id="view"><img id="view_pic" src=""></img></div>
+			<div class="img" id="view"><img id="view_pic" src=""></img></div>
+			<div class="img" id="view"><img id="view_pic" src=""></img></div> -->
+
+		</div>
+		<div class="load">
+			<div class="loadmore">
+				<button class="loadmore" onclick="getData(count = count+8,web_url);" style="width:100px, height:50px;">Load More</button>
+			</div>
+		</div>
+		<!-- <div id="content"></div> -->
+	</body>
+</html>
