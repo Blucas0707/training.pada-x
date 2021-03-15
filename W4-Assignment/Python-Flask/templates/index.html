@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+			font-size: 20px;
+		}
+		div {
+			display: block;
+		}
+		.nav-bar {
+			display:flex;
+			background-color: #1E3346;
+			align-items:center;
+			justify-content: center;
+			color: white;
+			height: 80px;
+			font-size: 1.5em;
+			font-weight: bold;
+
+		}
+		.login-menu {
+			/*background-color: gray;*/
+			text-align: center;
+		}
+		.login-menu .login-head {
+			margin: 20px 0px;
+			font-weight: bold;
+			/*background-color: blue;*/
+		}
+		.login-field {
+			margin:5px;
+			/*background-color: yellow;*/
+		}
+	</style>
+</head>
+
+<body>
+	<div class="nav-bar">歡迎光臨，請輸入帳號密碼</div>
+
+	<div class="login-menu">
+		<div class="login-head">登入系統</div>
+		<form class="login-form" action="/signin" method="POST">
+			<div class="login-field">
+				<span>帳號</span>
+				<input type="text" name="account" required>
+			</div>
+			<div class="login-field">
+				<span>密碼</span>
+				<input type="password" name="password" required>
+			</div>
+			<div class="login-field">
+				<button class="login-btn" onclick="" style="width:100px, height:40px;, padding:5px;">登入</button>
+			</div>
+		</form>
+	</div>
+
+<body>
+
+
+</html>
